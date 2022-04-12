@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>  
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,8 +29,14 @@
 				<td><a href="/expenses/${oneExpense.id}"><c:out value="${oneExpense.name}"></c:out></a></td>
 				<td><c:out value="${oneExpense.vendor}"></c:out></td>
 				<td><c:out value="${oneExpense.description}"></c:out></td>
-				<td>$<c:out value="${oneExpense.amount}"></c:out></td>
-				<td><a href="/expenses/${oneExpense.id}/edit">edit</a></td>
+				<td><fmt:formatNumber type="currency" value="${oneExpense.amount}"/></td>
+				<td>
+				<a href="/expenses/${oneExpense.id}/edit">edit</a>
+				<form action="/expenses/${oneExpense.id}" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button class="btn btn-danger">delete</button>
+</form>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
