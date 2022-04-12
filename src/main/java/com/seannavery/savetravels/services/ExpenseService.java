@@ -30,15 +30,20 @@ public class ExpenseService {
 	}
 
 	// updates an expense
-	public Expense updateExpense(Long id, String name, String vendor, String description, Double amount) {
-		Expense expenseToUpdate = this.findExpense(id);
-		expenseToUpdate.setName(name);
-		expenseToUpdate.setVendor(vendor);
-		expenseToUpdate.setDescription(description);
-		expenseToUpdate.setAmount(amount);
-		expenseRepository.save(expenseToUpdate);
-		return expenseToUpdate;
-	}
+    public Expense updateExpense(Expense expense) {
+    	Long expenseId = expense.getId();
+    	String expenseName = expense.getName();
+    	String expenseVendor = expense.getVendor();
+    	String expenseDescription = expense.getDescription();
+    	Double expenseAmount = expense.getAmount();
+    	Expense expenseToUpdate = this.findExpense(expenseId);   	
+    	expenseToUpdate.setName(expenseName);
+    	expenseToUpdate.setVendor(expenseVendor);
+    	expenseToUpdate.setDescription(expenseDescription);
+    	expenseToUpdate.setAmount(expenseAmount);
+    	expenseRepository.save(expenseToUpdate);
+        return expenseToUpdate;
+    }
 
 	// retrieves an expense
 	public Expense findExpense(Long id) {

@@ -21,6 +21,13 @@ public class ExpenseController {
         this.expenseService = expenseService;
     }
     
+    @RequestMapping("/expenses")
+    public String index(Model model, @ModelAttribute("expense") Expense expense) {
+    	List<Expense> expenses = expenseService.allExpenses();
+    	model.addAttribute("expenses", expenses);
+    	return "index.jsp";
+    }
+    
     @RequestMapping("/expenses/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
         Expense expense = expenseService.findExpense(id);
@@ -28,12 +35,6 @@ public class ExpenseController {
         return "show.jsp";
     }
     
-    @RequestMapping("/expenses")
-    public String index(Model model, @ModelAttribute("expense") Expense expense) {
-        List<Expense> expenses = expenseService.allExpenses();
-        model.addAttribute("expenses", expenses);
-        return "index.jsp";
-    }
     
     @RequestMapping(value="/expenses/create", method=RequestMethod.POST)
     public String create(Model model, @Valid @ModelAttribute("expense") Expense expense, BindingResult result) {
@@ -46,6 +47,23 @@ public class ExpenseController {
             return "redirect:/expenses";
         }
     }
+    
+    @RequestMapping("/expenses/{id}/edit")
+    public String edit(@PathVariable("id") Long id, Model model) {
+        Expense expense = expenseService.findExpense(id);
+        model.addAttribute("expense", expense);
+        return "edit.jsp";
+    }
+    
+    @RequestMapping(value="/expenses/{id}", method=RequestMethod.PUT)
+    public String update(@Valid @ModelAttribute("expense") Expense expense, BindingResult result) {
+        if (result.hasErrors()) {
+            return "edit.jsp";
+        } else {
+            expenseService.updateExpense(expense);
+            return "redirect:/expenses";
+        }
+    } 
     
     
 }

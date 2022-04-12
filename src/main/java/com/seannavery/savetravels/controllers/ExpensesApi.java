@@ -37,14 +37,14 @@ public class ExpensesApi {
 		return expense;
 	}
 
-	@RequestMapping(value = "/api/expenses/{id}", method = RequestMethod.PUT)
-	public Expense update(@PathVariable("id") Long id, @RequestParam(value = "name") String name,
-			@RequestParam(value = "vendor") String vendor, @RequestParam(value = "description") String description,
-			@RequestParam(value = "amount") Double amount) {
-
-		Expense updatedExpense = expenseService.updateExpense(id, name, vendor, description, amount);
-		return updatedExpense;
-	}
+//	@RequestMapping(value = "/api/expenses/{id}", method = RequestMethod.PUT)
+//	public Expense update(@PathVariable("id") Long id, @RequestParam(value = "name") String name,
+//			@RequestParam(value = "vendor") String vendor, @RequestParam(value = "description") String description,
+//			@RequestParam(value = "amount") Double amount) {
+//
+//		Expense updatedExpense = expenseService.updateExpense(id, name, vendor, description, amount);
+//		return updatedExpense;
+//	}
 
 	@RequestMapping(value = "/api/expenses/{id}", method = RequestMethod.DELETE)
 	public void destroy(@PathVariable("id") Long id) {
